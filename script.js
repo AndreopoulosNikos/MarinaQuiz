@@ -6,11 +6,11 @@ const audio = new Audio();
 // questions
 questions.set("question1", {
   q: "How many hours a day does Marina work per average?",
-  a1: "8",
-  a2: "4",
-  a3: "6",
+  a1: "8 Hours",
+  a2: "4 Hours",
+  a3: "6 Hours",
   a4: "Lol! What is work?",
-  correct: "4",
+  correct: "4 Hours",
 });
 
 questions.set("question2", {
@@ -49,10 +49,26 @@ for (const button of answerButtons) {
   button.addEventListener("click", checkAnswer);
 }
 
+answerButtons.forEach((button) => {
+  button.addEventListener("touchend", function () {
+    button.style.backgroundColor = "#f87ec5";
+    button.querySelector("p").style.color = "white";
+  });
+});
+
+answerButtons.forEach((button) => {
+  button.addEventListener("touchstart", function () {
+    button.style.backgroundColor = "#d7fad4";
+    button.querySelector("p").style.color = "#785f6d";
+  });
+});
+
 function checkAnswer(clickedButton) {
   const selectedAnswer =
     clickedButton.currentTarget.querySelector("p").textContent;
   if (selectedAnswer === questions.get("question" + questionNumber).correct) {
+    clickedButton.currentTarget.style.backgroundColor = "#d7fad4";
+    clickedButton.currentTarget.querySelector("p").style.color = "#785f6d";
     questions.get("question" + questionNumber).correct = "Checked";
     document.querySelector("#pic h2").style.display = "none";
     document.querySelector("#pic p").style.display = "none";
@@ -67,7 +83,7 @@ function checkAnswer(clickedButton) {
   } else if (
     document.querySelector("#answers h2").textContent === "Choose an answer!!!"
   ) {
-    document.querySelector("#answers h2").textContent = "Wrong Answer.. Wtf???";
+    document.querySelector("#answers h2").textContent = "Wrong Answer...";
   } else if (
     document.querySelector("#answers h2").textContent == "Correct Answer!!!"
   ) {
@@ -75,9 +91,14 @@ function checkAnswer(clickedButton) {
       "Stop Clicking Asshole!";
   }
 }
+
 //function to set questions and reset
 function setQuestion() {
   questionNumber++;
+  answerButtons.forEach((button) => {
+    button.style.backgroundColor = "#f87ec5";
+    button.querySelector("p").style.color = "white";
+  });
   audio.src = "Sounds/Audio" + questionNumber + ".mp3";
   document.querySelector("#pic img").src =
     "Images/Image" + questionNumber + ".jpg";
@@ -104,20 +125,23 @@ function setQuestion() {
 }
 
 function winGame() {
-  console.log(questionNumber);
+  answerButtons.forEach((button) => {
+    button.style.backgroundColor = "#f87ec5";
+    button.querySelector("p").style.color = "white";
+  });
   document.querySelector("#b1 p").textContent = "I";
   document.querySelector("#b2 p").textContent = "Love";
   document.querySelector("#b3 p").textContent = "You";
   document.querySelector("#b4 p").textContent = "Baby!";
   document.querySelector("#answers h2").textContent = "🎊You won🎊";
-  document.querySelector("#pic img").src =
-    "Images/Image" + questionNumber + ".jpg";
+  document.querySelector("#pic img").src = "Images/Image4.jpg";
+
+  audio.src = "Sounds/Audio4.mp3";
+  audio.play();
+
   setTimeout(() => {
     document.querySelector("#pic img").src = "Images/Image5.jpg";
-  }, 5000);
-
-  audio.src = "Sounds/Audio" + questionNumber + ".mp3";
-  audio.play();
+  }, 4000);
 }
 
 setQuestion();

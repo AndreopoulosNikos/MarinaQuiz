@@ -5,7 +5,7 @@ const questions = new Map();
 const audio = new Audio();
 // questions
 questions.set("question1", {
-  q: "How many hourd a day does Marina work per average?",
+  q: "How many hours a day does Marina work per average?",
   a1: "8",
   a2: "4",
   a3: "6",
